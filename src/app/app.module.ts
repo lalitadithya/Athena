@@ -39,6 +39,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent, DashboardLogDialog } from './dashboard/dashboard.component';
 import { HistoryComponent } from './history/history.component';
 import { ProfileComponent, ProfileUploadProfileDialog, ProfileUploadHeaderDialog } from './profile/profile.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { ProfileComponent, ProfileUploadProfileDialog, ProfileUploadHeaderDialog
     DashboardLogDialog,
     ProfileComponent,
     ProfileUploadProfileDialog,
-    ProfileUploadHeaderDialog
+    ProfileUploadHeaderDialog,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

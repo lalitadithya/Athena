@@ -1,0 +1,13 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let task of tasks">
+    <mat-expansion-panel-header>
+      <mat-panel-title style="color: black;">
+        {{task.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{task.description}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-progress-bar mode="determinate" value="{{task.progress}}"></mat-progress-bar>
+  </mat-expansion-panel>
+</mat-accordion>

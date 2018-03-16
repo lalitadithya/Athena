@@ -8,4 +8,15 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  messageShown = true;
+
+  toggleMessageDisply(): void {
+    if(this.messageShown) {
+      document.getElementById('message').style.display = 'none';
+      this.messageShown = false;
+    } else {
+      document.getElementById('message').style.display = 'block';
+      this.messageShown = true;
+    }
+  }
 }
