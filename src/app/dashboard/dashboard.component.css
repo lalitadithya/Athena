@@ -1,0 +1,13 @@
+.flex-container {
+    display: flex;
+    padding-left: 2%;
+    padding-top: 2%;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.example-card {
+    max-width: 260px;
+    margin: 10px;
+  }
+  
