@@ -1,8 +1,22 @@
 <div class="my-container">
     <mat-card class="example-card">
-        <div class="header-image" mat-card-image style="background-image: url(https://hk.hypebeast.com/files/2018/02/main-points-before-watching-black-panther-02.jpg);"></div>
-        <div class="profile-image" style="background-image: url(https://cnet2.cbsistatic.com/img/OL4tXNFWHZiS0qpHpWp3s06J2_8=/2018/02/06/58e74945-184e-4e48-90a7-550398b1fff2/black-panther-tchalla.jpg);"></div>
-        <mat-card-content>
+      <div class="card-header">
+        <div class="header-image" mat-card-image style="background-image: url(https://hk.hypebeast.com/files/2018/02/main-points-before-watching-black-panther-02.jpg);">
+          <button mat-raised-button style="margin-right: 10px;margin-bottom: 10px;" (click)="openHeaderDialog()">EDIT</button>
+        </div>
+        <div class="profile-image-container">
+          <div class="profile-image" style="background-image: url(https://cnet2.cbsistatic.com/img/OL4tXNFWHZiS0qpHpWp3s06J2_8=/2018/02/06/58e74945-184e-4e48-90a7-550398b1fff2/black-panther-tchalla.jpg);">
+          </div>
+          <div class="middle">
+              <div class="text">
+                  <button mat-icon-button (click)="openProfileDialog()">
+                    <mat-icon>file_upload</mat-icon>
+                  </button>
+              </div>
+            </div>
+        </div>
+      </div>
+        <mat-card-content style="margin-top: 70px;">
           <form>
             <div class="name-container">
                 <mat-form-field>
