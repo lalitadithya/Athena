@@ -36,7 +36,7 @@ import { MatAutocompleteModule,
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent, DashboardLogDialog } from './dashboard/dashboard.component';
 import { HistoryComponent } from './history/history.component';
 
 
@@ -44,7 +44,8 @@ import { HistoryComponent } from './history/history.component';
   declarations: [
     AppComponent,
     DashboardComponent,
-    HistoryComponent
+    HistoryComponent,
+    DashboardLogDialog
   ],
   imports: [
     BrowserModule,
@@ -84,6 +85,7 @@ import { HistoryComponent } from './history/history.component';
   AppRoutingModule,
   ],
   providers: [],
+  entryComponents: [DashboardLogDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,7 +14,7 @@
       <p>{{execution.description}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="accent" style="font-weight:bold">LOGS</button>
+      <button mat-button color="accent" style="font-weight:bold" (click)="openLogDialog(execution.id)">LOGS</button>
       <button mat-button color="accent" style="font-weight:bold">VIEW</button>
     </mat-card-actions>
   </mat-card>

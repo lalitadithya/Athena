@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Execution } from '../models/execution';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,9 +21,32 @@ export class DashboardComponent implements OnInit {
     { id: "10", name: "Neural Network", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.",status: "Running", image:"https://material.angular.io/assets/img/examples/shiba2.jpg" }
   ];
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
+  openLogDialog(id) : void {
+    console.log(id);
+    let dialogRef = this.dialog.open(DashboardLogDialog, {
+      width: '1024px',
+      data: { id: id}
+    });
+  }
+
+}
+
+@Component({
+  selector: 'dashboard-log-dialog',
+  templateUrl: 'dashboard-log-dialog.html'
+})
+export class DashboardLogDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DashboardLogDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
