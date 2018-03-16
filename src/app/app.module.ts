@@ -38,6 +38,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent, DashboardLogDialog } from './dashboard/dashboard.component';
 import { HistoryComponent } from './history/history.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { HistoryComponent } from './history/history.component';
     AppComponent,
     DashboardComponent,
     HistoryComponent,
-    DashboardLogDialog
+    DashboardLogDialog,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
