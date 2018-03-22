@@ -1,6 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { CommonModule } from '@angular/common';
+import { MyHomePageComponent } from './my-home-page/my-home-page.component';
+import { Routes, RouterModule } from '@angular/router';
+import { DataScientistRoutingModule } from './data-scientist-routing.module';
+import { DataScientistComponent } from './data-scientist.component';
+
+import { DashboardComponent, DashboardLogDialog } from './dashboard/dashboard.component';
+import { HistoryComponent } from './history/history.component';
+import { ProfileComponent, ProfileUploadProfileDialog, ProfileUploadHeaderDialog } from './profile/profile.component';
+import { MessagesComponent } from './messages/messages.component';
+
 import { MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
@@ -34,18 +46,10 @@ import { MatAutocompleteModule,
   MatToolbarModule,
   MatTooltipModule, } from '@angular/material';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './/app-routing.module';
-import { MyHomePageComponent } from './data-scientist/my-home-page/my-home-page.component';
-import { DataScientistModule } from './data-scientist/data-scientist.module';
-
-
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
   imports: [
-    DataScientistModule,
+    CommonModule,
+    DataScientistRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
@@ -80,9 +84,18 @@ import { DataScientistModule } from './data-scientist/data-scientist.module';
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  AppRoutingModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [
+    DataScientistComponent,
+    MyHomePageComponent,
+    DashboardComponent,
+    HistoryComponent,
+    DashboardLogDialog,
+    ProfileComponent,
+    ProfileUploadProfileDialog,
+    ProfileUploadHeaderDialog,
+    MessagesComponent
+  ],
+  entryComponents: [DashboardLogDialog, ProfileUploadProfileDialog, ProfileUploadHeaderDialog],
 })
-export class AppModule { }
+export class DataScientistModule { }
