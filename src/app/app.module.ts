@@ -43,12 +43,14 @@ import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationGuard } from './authentication.guard';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     DataScientistModule,
