@@ -9,7 +9,7 @@ export class DataScientistComponent {
   messageShown = true;
 
   toggleMessageDisply(): void {
-    if(this.messageShown) {
+    if (this.messageShown) {
       document.getElementById('message').style.display = 'none';
       this.messageShown = false;
     } else {

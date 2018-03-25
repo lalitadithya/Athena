@@ -13,14 +13,14 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-  openProfileDialog() : void {
-    let dialogRef = this.dialog.open(ProfileUploadProfileDialog, {
+  openProfileDialog(): void {
+    const dialogRef = this.dialog.open(ProfileUploadProfileDialog, {
       width: '512px'
     });
   }
 
   openHeaderDialog(): void {
-    let dialogRef = this.dialog.open(ProfileUploadHeaderDialog, {
+    const dialogRef = this.dialog.open(ProfileUploadHeaderDialog, {
       width: '512px'
     });
   }

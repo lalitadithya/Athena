@@ -8,8 +8,8 @@ import { Task } from '../models/task';
 })
 export class MessagesComponent implements OnInit {
   tasks: Task[] = [
-    {name: "Task 1", description: "Description 1", progress:50},
-    {name: "Task 2", description: "Description 2", progress:70},
+    {name: 'Task 1', description: 'Description 1', progress: 50},
+    {name: 'Task 2', description: 'Description 2', progress: 70},
   ];
 
   constructor() { }
