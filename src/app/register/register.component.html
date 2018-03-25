@@ -1,85 +1,98 @@
-
-
-
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <label>First Name: 
-    <input formControlName="firstName">
-  </label> 
-  <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-    <p *ngIf="firstName.errors.minlength">
-      First name is too small
-    </p>
-    <p *ngIf="firstName.errors.required">
-      First name is required
-    </p>
-  </div>
-  <br />
-  <label>Last Name: 
-    <input formControlName="lastName">
-  </label>
-  <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
-    <p *ngIf="lastName.errors.minlength">
-      last name is too small
-    </p>
-    <p *ngIf="lastName.errors.required">
-      last name is required
-    </p>
-  </div>
-  <br />
-  <label>Email: 
-    <input formControlName="email">
-  </label>
-  <div *ngIf="email.invalid && (email.dirty || email.touched)">
-    <p *ngIf="email.errors.email">
-      Enter a valid email
-    </p>
-    <p *ngIf="email.errors.required">
-      Email is required
-    </p>
-  </div>
-  <br />
-  <div formGroupName="passwords">
-    <label>Password: 
-      <input type="password" formControlName="password">
-      <div *ngIf="password.invalid && (password.dirty || password.touched)">
-        <p *ngIf="password.errors.required">
-          Password is required
-        </p>
-        <p *ngIf="password.errors.minlength">
-          Password must contain at least 6 characters
-        </p>
-        <p *ngIf="password.errors.maxlength">
-          Password can contain at most 20 characters
-        </p>
-        <p *ngIf="password.errors.strongPassword">
-          Password must contain at least one upper case letter, at least one lower case letter, at least one number and at least one digit
-        </p>
+<div class="container">
+  <div class="about">
+    <div class="feature">
+      <div class="with-icon">
+        <mat-icon class="icon">dns</mat-icon> Unlimited Machine Learning Pipelines.
       </div>
-    </label>
-    <br />
-    <label>Confirm Password: 
-      <input type="password" formControlName="confirmPassword">
-    </label>
-    <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
-      <p *ngIf="confirmPassword.errors.required">
-        Confirm password is required
-      </p>
     </div>
-    <div *ngIf="passwords.invalid && (passwords.dirty || passwords.touched)">
-      <p *ngIf="passwords.hasError('notEqual')">
-        Password and confirm password do not match
-      </p>
+    <div class="feature">
+      <div class="with-icon">
+        <mat-icon class="icon">security</mat-icon> Militry Grade Security.
+      </div>
+    </div>
+    <div class="feature">
+      <div class="with-icon">
+        <mat-icon class="icon">cloud</mat-icon> 99.99% Up Time.
+      </div>
+    </div>
+    <div class="feature">
+      <div class="with-icon">
+        <mat-icon class="icon">devices_other</mat-icon> Works Anywhere.
+      </div>
     </div>
   </div>
-  <br />
-  <label>Date of Birth: 
-    <input type="date" formControlName="dateOfBirth">
-    <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)">
-      <p *ngIf="dateOfBirth.errors.required">
-        Date of birth is required
-      </p>
+  <div class="registration-form">
+    <div class="form">
+      <div class="form-header">
+        <div class="logo" style="height:25px;width:25px;">
+
+        </div>
+        <h4>Join us today</h4>
+      </div>
+      <div class="form-body">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <mat-form-field class="form-field">
+            <input placeholder="First Name" matInput formControlName="firstName">
+            <mat-error *ngIf="firstName.hasError('required')">
+              First name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="firstName.hasError('minlength')">
+              First name is <strong>too small</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <input placeholder="Last Name" matInput formControlName="lastName">
+            <mat-error *ngIf="lastName.hasError('required')">
+              Last name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="lastName.hasError('minlength')">
+              Last name is <strong>too small</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <input placeholder="Email" matInput formControlName="email">
+            <mat-error *ngIf="email.hasError('required')">
+              <div>Email is <strong>required</strong></div>
+            </mat-error>
+            <mat-error *ngIf="email.hasError('email')">
+              <div>Email is <strong>not valid</strong></div>
+            </mat-error>
+          </mat-form-field>
+          <div formGroupName="passwords">
+              <mat-form-field class="form-field">
+                <input type="password" placeholder="Password" matInput formControlName="password">
+                <mat-error *ngIf="password.hasError('required')">
+                  Password is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="password.hasError('minlength')">
+                  Password must contain at least <strong>6 characters</strong>
+                </mat-error>
+                <mat-error *ngIf="password.hasError('maxlength')">
+                  Password can contain at most <strong>20 characters</strong>
+                </mat-error>
+                <mat-error *ngIf="password.hasError('strongPassword')">
+                  Password must contain <strong>1 upper case letter, 1 lower case letter, 1 one digit and 1 symbol</strong>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="form-field">
+                <input type="password" placeholder="Confirm Password" matInput formControlName="confirmPassword">
+                <mat-error *ngIf="confirmPassword.hasError('required')">
+                  Confirm password is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="passwords.hasError('notEqual')">
+                  Passwords do <strong>not match</strong>
+                </mat-error>
+              </mat-form-field>
+          </div>
+          <mat-form-field class="form-field">
+            <input type="date" placeholder="Date of Birth" matInput formControlName="dateOfBirth">
+            <mat-error *ngIf="dateOfBirth.hasError('required')">
+              Date of birth is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <button type="submit" [disabled]="!registerForm.valid" mat-raised-button color="primary">Submit</button>
+        </form>
+      </div>
     </div>
-  </label>
-  <br />
-  <button type="submit" [disabled]="!registerForm.valid">Register</button>
-</form>
+  </div>
+</div>
