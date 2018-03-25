@@ -7,6 +7,8 @@ import { DataScientistComponent } from './data-scientist.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HistoryComponent } from './history/history.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AuthenticationGuard } from '../authentication.guard';
+import { LoginComponent } from '../login/login.component';
 
 const dataScientistRoutes: Routes = [
   { path: 'data-scientist', component: DataScientistComponent,
@@ -14,7 +16,9 @@ const dataScientistRoutes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'history', component: HistoryComponent },
       { path: 'profile', component: ProfileComponent }
-    ]
+    ],
+    canActivate: [AuthenticationGuard],
+    canActivateChild:[AuthenticationGuard]
   }
 ];
 

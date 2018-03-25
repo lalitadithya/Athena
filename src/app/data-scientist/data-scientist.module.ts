@@ -45,6 +45,7 @@ import { MatAutocompleteModule,
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule, } from '@angular/material';
+import { AuthenticationGuard } from '../authentication.guard';
 
 @NgModule({
   imports: [
@@ -96,6 +97,7 @@ import { MatAutocompleteModule,
     ProfileUploadHeaderDialog,
     MessagesComponent
   ],
+  providers: [AuthenticationGuard],
   entryComponents: [DashboardLogDialog, ProfileUploadProfileDialog, ProfileUploadHeaderDialog],
 })
 export class DataScientistModule { }

@@ -42,6 +42,7 @@ import { DataScientistModule } from './data-scientist/data-scientist.module';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationGuard } from './authentication.guard';
 
 
 @NgModule({
@@ -89,7 +90,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatTooltipModule,
     AppRoutingModule,
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, AuthenticationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
