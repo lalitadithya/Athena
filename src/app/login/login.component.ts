@@ -24,11 +24,11 @@ export class LoginComponent implements OnInit {
     alert("Login");
     this.authService.login(this.login_model.email, this.login_model.password)
     .subscribe(result => {
-      alert("success");
+      alert("log in successfull");
     }, error => {
       alert("failed");
     }, () => {
-      alert("Completed");
+      
     });
   }
 }
