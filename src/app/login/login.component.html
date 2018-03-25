@@ -1,3 +1,22 @@
-<p>
-  login works!
-</p>
+{{diagnostic}}
+<form (ngSubmit)="login()" #loginForm="ngForm">
+  <div>
+    <label for="email">Email</label>
+    <input type="text" id="email" [(ngModel)]="login_model.email" name="email" required #email="ngModel">  
+    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+      <div>
+        Email is required
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" id="password" [(ngModel)]="login_model.password" name="password" required #password="ngModel">  
+    <div *ngIf="password.invalid && (password.dirty || password.touched)">
+      <div>
+        Password is required
+      </div>
+    </div>
+  </div>
+  <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
+</form>
