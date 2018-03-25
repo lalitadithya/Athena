@@ -1,3 +1,85 @@
-<p>
-  register works!
-</p>
+
+
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <label>First Name: 
+    <input formControlName="firstName">
+  </label> 
+  <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+    <p *ngIf="firstName.errors.minlength">
+      First name is too small
+    </p>
+    <p *ngIf="firstName.errors.required">
+      First name is required
+    </p>
+  </div>
+  <br />
+  <label>Last Name: 
+    <input formControlName="lastName">
+  </label>
+  <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+    <p *ngIf="lastName.errors.minlength">
+      last name is too small
+    </p>
+    <p *ngIf="lastName.errors.required">
+      last name is required
+    </p>
+  </div>
+  <br />
+  <label>Email: 
+    <input formControlName="email">
+  </label>
+  <div *ngIf="email.invalid && (email.dirty || email.touched)">
+    <p *ngIf="email.errors.email">
+      Enter a valid email
+    </p>
+    <p *ngIf="email.errors.required">
+      Email is required
+    </p>
+  </div>
+  <br />
+  <div formGroupName="passwords">
+    <label>Password: 
+      <input type="password" formControlName="password">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)">
+        <p *ngIf="password.errors.required">
+          Password is required
+        </p>
+        <p *ngIf="password.errors.minlength">
+          Password must contain at least 6 characters
+        </p>
+        <p *ngIf="password.errors.maxlength">
+          Password can contain at most 20 characters
+        </p>
+        <p *ngIf="password.errors.strongPassword">
+          Password must contain at least one upper case letter, at least one lower case letter, at least one number and at least one digit
+        </p>
+      </div>
+    </label>
+    <br />
+    <label>Confirm Password: 
+      <input type="password" formControlName="confirmPassword">
+    </label>
+    <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+      <p *ngIf="confirmPassword.errors.required">
+        Confirm password is required
+      </p>
+    </div>
+    <div *ngIf="passwords.invalid && (passwords.dirty || passwords.touched)">
+      <p *ngIf="passwords.hasError('notEqual')">
+        Password and confirm password do not match
+      </p>
+    </div>
+  </div>
+  <br />
+  <label>Date of Birth: 
+    <input type="date" formControlName="dateOfBirth">
+    <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)">
+      <p *ngIf="dateOfBirth.errors.required">
+        Date of birth is required
+      </p>
+    </div>
+  </label>
+  <br />
+  <button type="submit" [disabled]="!registerForm.valid">Register</button>
+</form>
