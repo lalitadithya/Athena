@@ -40,6 +40,8 @@ import { AppRoutingModule } from './/app-routing.module';
 import { MyHomePageComponent } from './data-scientist/my-home-page/my-home-page.component';
 import { DataScientistModule } from './data-scientist/data-scientist.module';
 import { LoginComponent } from './login/login.component';
+import { AuthenticationService } from './authentication.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     DataScientistModule,
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -86,7 +89,7 @@ import { LoginComponent } from './login/login.component';
     MatTooltipModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
