@@ -38,11 +38,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { MyHomePageComponent } from './data-scientist/my-home-page/my-home-page.component';
 import { DataScientistModule } from './data-scientist/data-scientist.module';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
   ],
   imports: [
     DataScientistModule,
