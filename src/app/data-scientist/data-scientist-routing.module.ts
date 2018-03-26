@@ -17,8 +17,7 @@ const dataScientistRoutes: Routes = [
       { path: 'history', component: HistoryComponent },
       { path: 'profile', component: ProfileComponent }
     ],
-    canActivate: [AuthenticationGuard],
-    canActivateChild:[AuthenticationGuard]
+    canActivate: [AuthenticationGuard]
   }
 ];
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../models/login';
 import { AuthenticationService } from '../authentication.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,27 +10,41 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  invalidLogin: boolean;
+  inProgress: boolean;
 
-  login_model = new Login();
-
-  constructor(private authService: AuthenticationService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthenticationService) { 
+    this.constructForm();
+  }
 
   ngOnInit() {
   }
 
-  get diagnostic() {
-    return JSON.stringify(this.login_model);
+  constructForm() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
 
-  login() {
-    alert("Login");
-    this.authService.login(this.login_model.email, this.login_model.password)
+  onSubmit() {
+    this.inProgress = true;
+    this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
     .subscribe(result => {
-      alert("log in successfull");
+      this.inProgress = false;
+      this.router.navigateByUrl('/data-scientist');
     }, error => {
-      alert("failed");
-    }, () => {
-      
+      this.inProgress = false;
+      this.invalidLogin = true;
     });
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 }

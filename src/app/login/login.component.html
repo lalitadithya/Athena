@@ -1,22 +1,64 @@
-{{diagnostic}}
-<form (ngSubmit)="login()" #loginForm="ngForm">
-  <div>
-    <label for="email">Email</label>
-    <input type="text" id="email" [(ngModel)]="login_model.email" name="email" required #email="ngModel">  
-    <div *ngIf="email.invalid && (email.dirty || email.touched)">
-      <div>
-        Email is required
+<div class="container">
+  <div class="about">
+    <div class="feature">
+      <div class="with-icon">
+        <mat-icon class="icon">dns</mat-icon> Unlimited Machine Learning Pipelines.
+      </div>
+    </div>
+    <div class="feature">
+      <div class="with-icon">
+        <mat-icon class="icon">security</mat-icon> Militry Grade Security.
+      </div>
+    </div>
+    <div class="feature">
+      <div class="with-icon">
+        <mat-icon class="icon">cloud</mat-icon> 99.99% Up Time.
+      </div>
+    </div>
+    <div class="feature">
+      <div class="with-icon">
+        <mat-icon class="icon">devices_other</mat-icon> Works Anywhere.
       </div>
     </div>
   </div>
-  <div>
-    <label for="password">Password</label>
-    <input type="password" id="password" [(ngModel)]="login_model.password" name="password" required #password="ngModel">  
-    <div *ngIf="password.invalid && (password.dirty || password.touched)">
-      <div>
-        Password is required
+  <div class="registration-form" *ngIf="!inProgress && !completed">
+      <div class="form">
+        <div class="form-header">
+          <div class="logo" style="height:25px;width:25px;">
+  
+          </div>
+          <h4>Login.</h4>
+          <div class="error" *ngIf="invalidLogin">Username or password is incorrect</div>
+        </div>
+        <div class="form-body">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="form-field">
+              <input placeholder="Email" matInput formControlName="email">
+              <mat-error *ngIf="email.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="email.hasError('email')">
+                Email is <strong>not valid</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+              <input type="password" placeholder="Password" matInput formControlName="password">
+              <mat-error *ngIf="password.hasError('required')">
+                Password is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="password.hasError('minlength')">
+                Password is <strong>too small</strong>
+              </mat-error>
+            </mat-form-field>
+            <button style="float:right" type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary">Login</button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
-</form>
+    <div class="registration-form" *ngIf="inProgress">
+      <div class="loading-message">
+        <mat-spinner></mat-spinner>
+        <h2>Distorting space-time continuum...</h2>
+      </div>
+    </div>
+</div>
