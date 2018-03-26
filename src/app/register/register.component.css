@@ -46,3 +46,9 @@
   overflow: hidden;
   width: 100%;
 }
+
+.loading-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

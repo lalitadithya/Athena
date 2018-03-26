@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { tap } from 'rxjs/operators';
 import { JwtHelper } from 'angular2-jwt';
+import { Register } from './models/register';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,7 +31,10 @@ export class AuthenticationService {
   }
 
   isEmailAvailable(email: string) {
-    console.log("Hello");
     return this.http.post('http://localhost:57293/Account/IsEmailAvailable', JSON.stringify({Email: email}), httpOptions);
+  }
+
+  register(firstName: string, lastName: string, email: string, password: string) {
+    return this.http.post('http://localhost:57293/Account/Register', JSON.stringify({FirstName: firstName, LastName: lastName, Email: email, Password: password}), httpOptions);
   }
 }

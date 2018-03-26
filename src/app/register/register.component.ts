@@ -9,6 +9,8 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  completed: boolean;
+  inProgress: boolean;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthenticationService) { 
     this.createForm();
@@ -30,7 +32,18 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    alert("Form submitted");
+    this.inProgress = true;
+    this.authService.register(this.registerForm.get('firstName').value,
+        this.registerForm.get('lastName').value, this.registerForm.get('email').value, 
+        this.registerForm.get('passwords').get('password').value)
+      .subscribe(result => {
+        this.inProgress = false;
+        this.completed = true;
+      }, error => {
+        this.inProgress = false;
+        this.completed = true;
+        console.log(error);
+      });
   }
 
   isEmailAvailable(): ValidatorFn {
