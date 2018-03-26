@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, Valid
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService) { 
     this.createForm();
   }
 
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(2)] ],
       lastName: ['', [Validators.required, Validators.minLength(2)] ],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email], this.isEmailAvailable()],
       passwords: this.formBuilder.group({
         password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), this.isStrongPassword()]],
         confirmPassword: ['', [Validators.required, this.confirmPasswordSameAsPassword()]]
@@ -30,6 +31,24 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     alert("Form submitted");
+  }
+
+  isEmailAvailable(): ValidatorFn {
+    return (contorl: AbstractControl): {[key:string]: any} => {
+      const email = contorl.value;
+      if(email != null) {
+        return new Promise(resolve => {
+          this.authService.isEmailAvailable(email).subscribe((res) => {
+            if(res['emailAvailable']) {
+              resolve(null);
+            } else {
+              resolve({'emailTaken':contorl.value})
+            }
+          });
+        });
+      }
+      return null;
+    }
   }
 
   confirmPasswordSameAsPassword() : ValidatorFn {

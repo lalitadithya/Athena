@@ -28,4 +28,9 @@ export class AuthenticationService {
   logout() {
     localStorage.clear();
   }
+
+  isEmailAvailable(email: string) {
+    console.log("Hello");
+    return this.http.post('http://localhost:57293/Account/IsEmailAvailable', JSON.stringify({Email: email}), httpOptions);
+  }
 }
