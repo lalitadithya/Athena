@@ -79,7 +79,7 @@
                 <mat-error *ngIf="confirmPassword.hasError('required')">
                   Confirm password is <strong>required</strong>
                 </mat-error>
-                <mat-error *ngIf="passwords.hasError('notEqual')">
+                <mat-error *ngIf="confirmPassword.hasError('passwordsNotSame')">
                   Passwords do <strong>not match</strong>
                 </mat-error>
               </mat-form-field>

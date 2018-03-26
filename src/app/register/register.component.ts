@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       passwords: this.formBuilder.group({
         password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), this.isStrongPassword()]],
-        confirmPassword: ['', Validators.required]
+        confirmPassword: ['', [Validators.required, this.confirmPasswordSameAsPassword()]]
       }, {validator: this.areEqual}),
       dateOfBirth: ['', Validators.required]
     })
@@ -31,6 +31,25 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     alert("Form submitted");
+  }
+
+  confirmPasswordSameAsPassword() : ValidatorFn {
+    return (control: AbstractControl): {[key:string]: any} => {
+      if(control.parent != null) {
+        const confirmPassword = control.value;
+        const password = control.parent.controls['password'].value;
+        if(!password || !confirmPassword) {
+          return { 'passwordsNotSame': control.value};
+        }
+        if(password == confirmPassword) {
+          return null;
+        } else {
+          return { 'passwordsNotSame': control.value};
+        }
+      } else {
+        return { 'passwordsNotSame': control.value};
+      }
+    }
   }
 
   areEqual(group: AbstractControl):{notEqual: boolean} {
