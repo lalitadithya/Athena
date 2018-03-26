@@ -4,5 +4,4 @@ export class Register {
   email: String;
   password: String;
   confirmPassword: String;
-  dateOfBirth: Date;
 }

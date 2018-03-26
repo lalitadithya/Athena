@@ -24,8 +24,7 @@ export class RegisterComponent implements OnInit {
       passwords: this.formBuilder.group({
         password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), this.isStrongPassword()]],
         confirmPassword: ['', [Validators.required, this.confirmPasswordSameAsPassword()]]
-      }, {validator: this.areEqual}),
-      dateOfBirth: ['', Validators.required]
+      })
     })
   }
 
@@ -49,19 +48,6 @@ export class RegisterComponent implements OnInit {
       } else {
         return { 'passwordsNotSame': control.value};
       }
-    }
-  }
-
-  areEqual(group: AbstractControl):{notEqual: boolean} {
-    const password = group.get('password').value;
-    const confirmPassword = group.get('confirmPassword').value;
-    if(!password || !confirmPassword) {
-      return { notEqual: true};
-    }
-    if(password == confirmPassword) {
-      return null;
-    } else {
-      return { notEqual: true};
     }
   }
 
@@ -93,10 +79,6 @@ export class RegisterComponent implements OnInit {
 
   get passwords() {
     return this.registerForm.get('passwords');
-  }
-
-  get dateOfBirth() {
-    return this.registerForm.get('dateOfBirth');
   }
 
   get password() {
