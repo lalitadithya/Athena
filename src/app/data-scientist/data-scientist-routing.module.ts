@@ -9,15 +9,17 @@ import { HistoryComponent } from './history/history.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationGuard } from '../authentication.guard';
 import { LoginComponent } from '../login/login.component';
+import { DataSetComponent } from './data-set/data-set.component';
 
 const dataScientistRoutes: Routes = [
   { path: 'data-scientist', component: DataScientistComponent,
     children: [
       { path: '', component: DashboardComponent },
       { path: 'history', component: HistoryComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'dataset', component: DataSetComponent }
     ],
-    canActivate: [AuthenticationGuard]
+    //canActivate: [AuthenticationGuard]
   }
 ];
 

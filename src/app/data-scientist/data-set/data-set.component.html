@@ -1,0 +1,37 @@
+<br />
+<div class="container mat-elevation-z8">
+  <div class="header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Description}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="CreatedDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.CreatedDate}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>
+
+<div style="z-index:5; position : fixed;bottom:5%;right:3%;">
+  <button mat-fab (click)="openDialogForUpload()"><mat-icon>add</mat-icon></button>
+</div>

@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Upload a data set</h2>
+<mat-dialog-content>
+    <form class="form" [formGroup]="uploadDataSetForm" (ngSubmit)="onSubmit()">
+        <mat-form-field style="width:100%;">
+            <input matInput placeholder="Name" type="text" formControlName="name">
+        </mat-form-field>
+        <mat-form-field style="width:100%;">
+            <textarea matInput placeholder="Description" formControlName="description"></textarea>
+        </mat-form-field>
+        <div style="width:100%;">
+            <input type="file" formControlName="file" (change)="handleFileInput($event.target.files)">
+        </div>
+        <br />
+        <button type="submit" mat-raised-button color="primary">Upload Data Set</button>
+    </form>
+</mat-dialog-content>

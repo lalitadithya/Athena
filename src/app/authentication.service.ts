@@ -18,7 +18,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(username: String, password: String) {
-    return this.http.post('http://localhost:57293/Account/Login', JSON.stringify({Username: username, password: password}), httpOptions)
+    return this.http.post('http://localhost:57294/Account/Login', JSON.stringify({Username: username, password: password}), httpOptions)
     .map((response: Response) => {
       let jwtHelper = new JwtHelper();
       localStorage.setItem('token', response['token']);
@@ -31,10 +31,10 @@ export class AuthenticationService {
   }
 
   isEmailAvailable(email: string) {
-    return this.http.post('http://localhost:57293/Account/IsEmailAvailable', JSON.stringify({Email: email}), httpOptions);
+    return this.http.post('http://localhost:57294/Account/IsEmailAvailable', JSON.stringify({Email: email}), httpOptions);
   }
 
   register(firstName: string, lastName: string, email: string, password: string) {
-    return this.http.post('http://localhost:57293/Account/Register', JSON.stringify({FirstName: firstName, LastName: lastName, Email: email, Password: password}), httpOptions);
+    return this.http.post('http://localhost:57294/Account/Register', JSON.stringify({FirstName: firstName, LastName: lastName, Email: email, Password: password}), httpOptions);
   }
 }
