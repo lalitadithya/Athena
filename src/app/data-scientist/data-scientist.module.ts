@@ -8,7 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DataScientistRoutingModule } from './data-scientist-routing.module';
 import { DataScientistComponent } from './data-scientist.component';
 
-import { DashboardComponent, DashboardLogDialog } from './dashboard/dashboard.component';
+import { DashboardComponent, DashboardLogDialog, DashboardAddPipelineDialog } from './dashboard/dashboard.component';
 import { HistoryComponent } from './history/history.component';
 import { ProfileComponent, ProfileUploadProfileDialog, ProfileUploadHeaderDialog } from './profile/profile.component';
 import { MessagesComponent } from './messages/messages.component';
@@ -104,9 +104,17 @@ import { CompleteDataSetComponent, CompleteDataSetUploadDialog } from './complet
     MessagesComponent,
     DataSetComponent,
     CompleteDataSetComponent,
-    CompleteDataSetUploadDialog
+    CompleteDataSetUploadDialog,
+    DashboardAddPipelineDialog
   ],
   providers: [AuthenticationGuard],
-  entryComponents: [DashboardLogDialog, ProfileUploadProfileDialog, ProfileUploadHeaderDialog, DataSetUploadDialog, CompleteDataSetUploadDialog],
+  entryComponents: [
+    DashboardLogDialog, 
+    ProfileUploadProfileDialog, 
+    ProfileUploadHeaderDialog, 
+    DataSetUploadDialog, 
+    CompleteDataSetUploadDialog, 
+    DashboardAddPipelineDialog
+  ],
 })
 export class DataScientistModule { }

@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Add Pipeline</h2>
+<mat-dialog-content>
+  <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+    <mat-step [stepControl]="algorithmSelectionFormGroup">
+      <form class="form" [formGroup]="algorithmSelectionFormGroup">
+        <ng-template matStepLabel>Pick your poision</ng-template>
+        <mat-form-field style="width:100%;">
+          <input placeholder="Algorithm" matInput formControlName="alogrithm">
+          <mat-error *ngIf="alogrithm.hasError('required')">
+            Algorithm is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>
