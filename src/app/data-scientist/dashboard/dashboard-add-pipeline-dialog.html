@@ -5,8 +5,8 @@
       <form class="form" [formGroup]="algorithmSelectionFormGroup">
         <ng-template matStepLabel>Pick your poision</ng-template>
         <mat-form-field style="width:100%;">
-          <mat-select placeholder="Algorithm" formControlName="alogrithm">
-            <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm.id">
+          <mat-select [(value)]="selected" placeholder="Algorithm" formControlName="alogrithm">
+            <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm">
               {{algorithm.name}}
             </mat-option>
           </mat-select>
@@ -15,6 +15,9 @@
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
+        <div *ngIf="selected">
+          {{selected.description}}
+        </div>
         <div>
           <button mat-button matStepperNext>Next</button>
         </div>

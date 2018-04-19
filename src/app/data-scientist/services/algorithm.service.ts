@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Algorithm } from '../models/algorithm'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AlgorithmService {
+  headers: HttpHeaders;
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+  }
 
   get() {
-    let algorithms: Algorithm[] = [
-      { id: '1', description: 'desc1', name: 'algo1' },
-      { id: '2', description: 'desc2', name: 'algo2' },
-      { id: '3', description: 'desc3', name: 'algo3' },
-      { id: '4', description: 'desc4', name: 'algo4' }
-    ];
-    return algorithms;
+    return this.http.get<Algorithm[]>('http://localhost:57294/api/Algorithm', {
+      headers: this.headers
+    });
   }
 }

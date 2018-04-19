@@ -75,7 +75,9 @@ export class DashboardAddPipelineDialog {
   ngOnInit() {
     this.parameters = this.parameterService.getParameters();
     this.parameterFormGroup = this.parameterService.toFormGroup(this.parameters);
-    this.algorithms = this.algorithmService.get();
+    this.algorithmService.get().subscribe((res) => {
+      this.algorithms = res;
+    });
     this.algorithmSelectionFormGroup = this.formBuilder.group({
       alogrithm: ['', Validators.required]
     });
