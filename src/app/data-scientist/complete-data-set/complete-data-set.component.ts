@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataSet } from './data-set';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { DataSetService } from './data-set.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class CompleteDataSetComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: DataSetService) { }
+  constructor(public dialog: MatDialog, private service: DataSetService) { }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -38,4 +38,16 @@ export class CompleteDataSetComponent implements OnInit {
   ngOnInit() {
 
   }
+
+  openDialogForUpload() {
+    this.dialog.open(CompleteDataSetUploadDialog);
+  }
+}
+
+@Component({
+  selector: 'complete-data-set-upload-dialog',
+  templateUrl: 'complete-data-set-upload-dialog.html',
+})
+export class CompleteDataSetUploadDialog {
+
 }
