@@ -1,4 +1,38 @@
 <h2 mat-dialog-title>Create a data set</h2>
 <mat-dialog-content>
-    <h1>I am a dialog</h1>
+    <form class="form" [formGroup]="createDataSetForm" (ngSubmit)="onSubmit()">
+        <mat-form-field style="width:100%;">
+            <input placeholder="Name" matInput formControlName="name">
+            <mat-error *ngIf="name.hasError('required')">
+                Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width:100%;">
+            <input placeholder="Description" matInput formControlName="description">
+            <mat-error *ngIf="description.hasError('required')">
+                Description is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width:100%">
+            <mat-select placeholder="X component" formControlName="xComponent">
+                <mat-option *ngFor="let file of files" [value]="file.id">
+                {{file.name}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="xComponent.hasError('required')">
+                X component is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width:100%">
+            <mat-select placeholder="Y component" formControlName="yComponent">
+                <mat-option *ngFor="let file of files" [value]="file.id">
+                    {{file.name}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="yComponent.hasError('required')">
+                Y component is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button type="button" [disabled]="!createDataSetForm.valid" mat-raised-button color="primary">Create</button>
+    </form>
 </mat-dialog-content>
