@@ -19,7 +19,7 @@ export class DataSetComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog, private service: DataSetServiceService) { 
+  constructor(public dialog: MatDialog, private service: DataSetServiceService) {
   }
 
   ngAfterViewInit() {
@@ -47,7 +47,7 @@ export class DataSetComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.updateData();
-    })
+    });
   }
 
   ngOnInit() {
@@ -62,7 +62,7 @@ export class DataSetUploadDialog {
   uploadDataSetForm: FormGroup;
   dataSetToUpload: File;
 
-  constructor(private httpClient: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog) { 
+  constructor(private httpClient: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog) {
     this.buildForm();
   }
 
@@ -85,21 +85,21 @@ export class DataSetUploadDialog {
     formData.set('Name', this.uploadDataSetForm.get('name').value);
     formData.set('Description', this.uploadDataSetForm.get('description').value);
 
-    const headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem('token'));
-    const req = new HttpRequest('POST', "http://localhost:57294/api/DataSets", formData, {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    const req = new HttpRequest('POST', 'http://localhost:57294/api/DataSets', formData, {
       reportProgress: true,
       headers: headers
     });
     this.httpClient.request(req).subscribe(event => {
-      if(event.type == HttpEventType.UploadProgress) {
+      if (event.type == HttpEventType.UploadProgress) {
         console.log(Math.round(100 * event.loaded / event.total));
-      } else if(event instanceof HttpResponse) {
+      } else if (event instanceof HttpResponse) {
         console.log(event.body);
-        console.log("Upload success");
+        console.log('Upload success');
         this.dialog.closeAll();
       }
     }, err => {
-      console.log("error");
+      console.log('error');
       console.log(err);
     });
   }

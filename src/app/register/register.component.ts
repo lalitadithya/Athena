@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   completed: boolean;
   inProgress: boolean;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService) { 
+  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService) {
     this.createForm();
   }
 
@@ -28,13 +28,13 @@ export class RegisterComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), this.isStrongPassword()]],
         confirmPassword: ['', [Validators.required, this.confirmPasswordSameAsPassword()]]
       })
-    })
+    });
   }
 
   onSubmit() {
     this.inProgress = true;
     this.authService.register(this.registerForm.get('firstName').value,
-        this.registerForm.get('lastName').value, this.registerForm.get('email').value, 
+        this.registerForm.get('lastName').value, this.registerForm.get('email').value,
         this.registerForm.get('passwords').get('password').value)
       .subscribe(result => {
         this.inProgress = false;
@@ -47,32 +47,32 @@ export class RegisterComponent implements OnInit {
   }
 
   isEmailAvailable(): ValidatorFn {
-    return (contorl: AbstractControl): {[key:string]: any} => {
+    return (contorl: AbstractControl): {[key: string]: any} => {
       const email = contorl.value;
-      if(email != null) {
+      if (email != null) {
         return new Promise(resolve => {
           this.authService.isEmailAvailable(email).subscribe((res) => {
-            if(res['emailAvailable']) {
+            if (res['emailAvailable']) {
               resolve(null);
             } else {
-              resolve({'emailTaken':contorl.value})
+              resolve({'emailTaken': contorl.value});
             }
           });
         });
       }
       return null;
-    }
+    };
   }
 
-  confirmPasswordSameAsPassword() : ValidatorFn {
-    return (control: AbstractControl): {[key:string]: any} => {
-      if(control.parent != null) {
+  confirmPasswordSameAsPassword(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if (control.parent != null) {
         const confirmPassword = control.value;
         const password = control.parent.controls['password'].value;
-        if(!password || !confirmPassword) {
+        if (!password || !confirmPassword) {
           return { 'passwordsNotSame': control.value};
         }
-        if(password == confirmPassword) {
+        if (password == confirmPassword) {
           return null;
         } else {
           return { 'passwordsNotSame': control.value};
@@ -80,19 +80,15 @@ export class RegisterComponent implements OnInit {
       } else {
         return { 'passwordsNotSame': control.value};
       }
-    }
+    };
   }
 
   isStrongPassword(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} =>
-    {
-      if(/[a-z]/.test(control.value) && /[A-Z]/.test(control.value) && /[0-9]/.test(control.value) && /[^A-Za-z0-9 ]/.test(control.value))
-      {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if (/[a-z]/.test(control.value) && /[A-Z]/.test(control.value) && /[0-9]/.test(control.value) && /[^A-Za-z0-9 ]/.test(control.value)) {
         return null;
-      } 
-      else 
-      {
-        return {'strongPassword':{value:control.value}};
+      } else {
+        return {'strongPassword': {value: control.value}};
       }
     };
   }

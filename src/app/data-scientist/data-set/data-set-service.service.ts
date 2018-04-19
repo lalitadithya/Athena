@@ -6,12 +6,12 @@ import {Element} from './data-set';
 export class DataSetServiceService {
   headers: HttpHeaders;
 
-  constructor(private http: HttpClient) { 
-    this.headers = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem('token'));
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
   }
 
   get() {
-    return this.http.get<Element[]>("http://localhost:57294/api/DataSets", {
+    return this.http.get<Element[]>('http://localhost:57294/api/DataSets', {
       headers: this.headers
     });
   }

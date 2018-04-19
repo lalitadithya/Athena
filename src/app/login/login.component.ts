@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   invalidLogin: boolean;
   inProgress: boolean;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthenticationService) { 
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthenticationService) {
     this.constructForm();
   }
 

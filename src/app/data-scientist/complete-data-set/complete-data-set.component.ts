@@ -3,7 +3,7 @@ import { DataSet } from './data-set';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { DataSetService } from './data-set.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Element } from '../data-set/data-set'
+import { Element } from '../data-set/data-set';
 import { DataSetServiceService } from '../data-set/data-set-service.service';
 
 @Component({
