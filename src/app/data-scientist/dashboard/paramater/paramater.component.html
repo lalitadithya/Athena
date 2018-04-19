@@ -1,0 +1,9 @@
+<div [formGroup]="form" class="form">
+  <mat-form-field style="width:100%;" [attr.for]="parameter.key">
+    <input placeholder="{{parameter.label}}" matInput [formControlName]="parameter.key" [id]="parameter.id" [type]="parameter.type">
+    <mat-error *ngIf="control.hasError('required')">
+      {{parameter.label}} is
+      <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+</div>

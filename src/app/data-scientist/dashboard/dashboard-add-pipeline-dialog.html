@@ -5,13 +5,30 @@
       <form class="form" [formGroup]="algorithmSelectionFormGroup">
         <ng-template matStepLabel>Pick your poision</ng-template>
         <mat-form-field style="width:100%;">
-          <input placeholder="Algorithm" matInput formControlName="alogrithm">
+          <mat-select placeholder="Algorithm" formControlName="alogrithm">
+            <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm.id">
+              {{algorithm.name}}
+            </mat-option>
+          </mat-select>
           <mat-error *ngIf="alogrithm.hasError('required')">
             Algorithm is
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
         <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="parameterFormGroup">
+      <form [formGroup]="parameterFormGroup">
+        <ng-template matStepLabel>How would you like your poision</ng-template>
+        <div *ngFor="let parameter of parameters" class="form-row">
+          <app-paramater [parameter]="parameter" [form]="parameterFormGroup"></app-paramater>
+        </div>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>

@@ -9,9 +9,9 @@ export class AlgorithmService {
   get() {
     let algorithms: Algorithm[] = [
       { id: '1', description: 'desc1', name: 'algo1' },
-      { id: '2', description: 'desc1', name: 'algo1' },
-      { id: '3', description: 'desc1', name: 'algo1' },
-      { id: '4', description: 'desc1', name: 'algo1' }
+      { id: '2', description: 'desc2', name: 'algo2' },
+      { id: '3', description: 'desc3', name: 'algo3' },
+      { id: '4', description: 'desc4', name: 'algo4' }
     ];
     return algorithms;
   }

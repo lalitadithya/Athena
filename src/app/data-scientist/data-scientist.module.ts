@@ -49,6 +49,7 @@ import { AuthenticationGuard } from '../authentication.guard';
 import { DataSetComponent, DataSetUploadDialog } from './data-set/data-set.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CompleteDataSetComponent, CompleteDataSetUploadDialog } from './complete-data-set/complete-data-set.component';
+import { ParamaterComponent } from './dashboard/paramater/paramater.component';
 
 @NgModule({
   imports: [
@@ -105,7 +106,8 @@ import { CompleteDataSetComponent, CompleteDataSetUploadDialog } from './complet
     DataSetComponent,
     CompleteDataSetComponent,
     CompleteDataSetUploadDialog,
-    DashboardAddPipelineDialog
+    DashboardAddPipelineDialog,
+    ParamaterComponent
   ],
   providers: [AuthenticationGuard],
   entryComponents: [

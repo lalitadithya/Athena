@@ -2,6 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Execution } from '../models/execution';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Algorithm } from '../models/algorithm';
+import { AlgorithmService } from '../services/algorithm.service';
+import { ParamaterService } from '../services/paramater.service';
+import { ParameterBase } from './parameter-base';
 
 @Component({
   selector: 'app-dashboard',
@@ -57,14 +61,21 @@ export class DashboardLogDialog {
 
 @Component({
   selector: 'dashboard-add-pipeline-dialog',
-  templateUrl: 'dashboard-add-pipeline-dialog.html'
+  templateUrl: 'dashboard-add-pipeline-dialog.html',
+  providers: [AlgorithmService, ParamaterService]
 })
 export class DashboardAddPipelineDialog {
   algorithmSelectionFormGroup: FormGroup;
+  parameterFormGroup: FormGroup;
+  algorithms: Algorithm[];
+  parameters: ParameterBase<any>[] = [];
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private algorithmService: AlgorithmService, private parameterService: ParamaterService) { }
 
   ngOnInit() {
+    this.parameters = this.parameterService.getParameters();
+    this.parameterFormGroup = this.parameterService.toFormGroup(this.parameters);
+    this.algorithms = this.algorithmService.get();
     this.algorithmSelectionFormGroup = this.formBuilder.group({
       alogrithm: ['', Validators.required]
     });
