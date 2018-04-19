@@ -29,7 +29,10 @@ export class CompleteDataSetComponent implements OnInit {
   }
 
   updateData() {
-    this.dataSource = new MatTableDataSource<DataSet>(this.service.get());
+    this.service.get().subscribe((data) => {
+      console.log(data);
+      this.dataSource = new MatTableDataSource<DataSet>(data);
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -43,49 +46,58 @@ export class CompleteDataSetComponent implements OnInit {
   }
 
   openDialogForUpload() {
-    this.dialog.open(CompleteDataSetUploadDialog);
+    const dialogRef = this.dialog.open(CompleteDataSetUploadDialog);
+    dialogRef.afterClosed().subscribe(result => {
+      this.updateData();
+    })
   }
 }
 
 @Component({
   selector: 'complete-data-set-upload-dialog',
   templateUrl: 'complete-data-set-upload-dialog.html',
-  providers: [DataSetServiceService]
+  providers: [DataSetServiceService, DataSetService]
 })
 export class CompleteDataSetUploadDialog {
   createDataSetForm: FormGroup;
   public files: Element[];
 
-  constructor(private fileService: DataSetServiceService, private formBuilder: FormBuilder) {
+  constructor(private fileService: DataSetServiceService, private formBuilder: FormBuilder, private dataSetService: DataSetService, private dialog: MatDialog) {
     this.fileService.get().subscribe((res) => {
       this.files = res;
-      console.log(this.files);
     });
     this.buildForm();
   }
 
   buildForm() {
     this.createDataSetForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      xComponent: ['', [Validators.required]],
-      yComponent: ['', [Validators.required]]
+      Name: ['', [Validators.required]],
+      Description: ['', [Validators.required]],
+      XComponentId: ['', [Validators.required]],
+      YComponentId: ['', [Validators.required]]
     });
   }
 
-  get name() {
-    return this.createDataSetForm.get('name');
+  get Name() {
+    return this.createDataSetForm.get('Name');
   }
 
-  get description() {
-    return this.createDataSetForm.get('description');
+  get Description() {
+    return this.createDataSetForm.get('Description');
   }
 
-  get xComponent() {
-    return this.createDataSetForm.get('xComponent');
+  get XComponentId() {
+    return this.createDataSetForm.get('XComponentId');
   }
 
-  get yComponent() {
-    return this.createDataSetForm.get('yComponent');
+  get YComponentId() {
+    return this.createDataSetForm.get('YComponentId');
+  }
+
+  onSubmit() {
+    let val = this.createDataSetForm.getRawValue();
+    let seralized = JSON.stringify(val);
+    console.log(seralized);
+    this.dataSetService.post(seralized).subscribe(response => this.dialog.closeAll());
   }
 }

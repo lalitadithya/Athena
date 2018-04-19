@@ -1,6 +1,8 @@
 export interface DataSet {
   name: String;
   description: String;
-  xComponent: String;
-  yComponent: String;
+  xComponentId: String;
+  yComponentId: String;
+  xComponentName: String;
+  yComponentName: String;
 }

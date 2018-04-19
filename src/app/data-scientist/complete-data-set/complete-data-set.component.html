@@ -18,12 +18,12 @@
 
     <ng-container matColumnDef="xComponent">
       <mat-header-cell *matHeaderCellDef mat-sort-header>X Component</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.xComponent}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.xComponentName}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="yComponent">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Y Component</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.yComponent}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.yComponentName}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
