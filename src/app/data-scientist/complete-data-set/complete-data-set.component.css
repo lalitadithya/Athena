@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 400px;
+}
+
+.form {
+    min-width: 400px;
+    max-width: 500px;
+    width: 400px;
+}
+  
+.full-width {
+    width: 400px;
+}

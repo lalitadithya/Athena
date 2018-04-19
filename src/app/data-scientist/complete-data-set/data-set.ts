@@ -1,4 +1,4 @@
-export interface DatSet {
+export interface DataSet {
   name: String;
   description: String;
   xComponent: String;
