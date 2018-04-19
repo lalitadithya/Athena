@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 export class DataScientistComponent {
   title = 'app';
-  messageShown = true;
+  messageShown = false;
 
   toggleMessageDisply(): void {
     if (this.messageShown) {
