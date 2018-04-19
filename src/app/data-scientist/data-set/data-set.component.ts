@@ -2,25 +2,37 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
+import { DataSetServiceService } from './data-set-service.service';
+import {Element} from './data-set';
 
 @Component({
   selector: 'app-data-set',
   templateUrl: './data-set.component.html',
-  styleUrls: ['./data-set.component.css']
+  styleUrls: ['./data-set.component.css'],
+  providers: [DataSetServiceService]
 })
 export class DataSetComponent implements OnInit {
-  displayedColumns = ['Name', 'Description', 'CreatedDate'];
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+  displayedColumns = ['name', 'description'];
+  ELEMENT_DATA: Element[];
+  dataSource = new MatTableDataSource<Element>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog) { 
+  constructor(public dialog: MatDialog, private service: DataSetServiceService) { 
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.updateData();
+  }
+
+  updateData() {
+    this.service.get().subscribe((res) => {
+      this.ELEMENT_DATA = res;
+      this.dataSource = new MatTableDataSource<Element>(this.ELEMENT_DATA);
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -33,30 +45,14 @@ export class DataSetComponent implements OnInit {
     const dialogRef = this.dialog.open(DataSetUploadDialog, {
       width: '400px'
     });
+    dialogRef.afterClosed().subscribe(result => {
+      this.updateData();
+    })
   }
 
   ngOnInit() {
   }
 }
-
-export interface Element {
-  Name: string, 
-  Description: string,
-  CreatedDate: string
-}
-
-const ELEMENT_DATA: Element[] = [
-  {Name: 'DS1', Description: 'Data set 1', CreatedDate: 'date 1'},
-  {Name: 'DS2', Description: 'Data set 2', CreatedDate: 'date 1'},
-  {Name: 'DS3', Description: 'Data set 3', CreatedDate: 'date 1'},
-  {Name: 'DS4', Description: 'Data set 4', CreatedDate: 'date 1'},
-  {Name: 'DS5', Description: 'Data set 5', CreatedDate: 'date 1'},
-  {Name: 'DS6', Description: 'Data set 6', CreatedDate: 'date 1'},
-  {Name: 'DS7', Description: 'Data set 7', CreatedDate: 'date 1'},
-  {Name: 'DS8', Description: 'Data set 8', CreatedDate: 'date 1'},
-  {Name: 'DS9', Description: 'Data set 9', CreatedDate: 'date 1'},
-  {Name: 'DS10', Description: 'Data set 10', CreatedDate: 'date 1'},
-];
 
 @Component({
   selector: 'data-set-upload-dialog',
@@ -100,6 +96,7 @@ export class DataSetUploadDialog {
       } else if(event instanceof HttpResponse) {
         console.log(event.body);
         console.log("Upload success");
+        this.dialog.closeAll();
       }
     }, err => {
       console.log("error");
