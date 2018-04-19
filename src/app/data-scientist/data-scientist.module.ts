@@ -48,6 +48,7 @@ import { MatAutocompleteModule,
 import { AuthenticationGuard } from '../authentication.guard';
 import { DataSetComponent, DataSetUploadDialog } from './data-set/data-set.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CompleteDataSetComponent } from './complete-data-set/complete-data-set.component';
 
 @NgModule({
   imports: [
@@ -101,7 +102,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ProfileUploadProfileDialog,
     ProfileUploadHeaderDialog,
     MessagesComponent,
-    DataSetComponent
+    DataSetComponent,
+    CompleteDataSetComponent
   ],
   providers: [AuthenticationGuard],
   entryComponents: [DashboardLogDialog, ProfileUploadProfileDialog, ProfileUploadHeaderDialog, DataSetUploadDialog],
