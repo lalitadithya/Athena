@@ -10,6 +10,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationGuard } from '../authentication.guard';
 import { LoginComponent } from '../login/login.component';
 import { DataSetComponent } from './data-set/data-set.component';
+import { CompleteDataSetComponent } from './complete-data-set/complete-data-set.component';
 
 const dataScientistRoutes: Routes = [
   { path: 'data-scientist', component: DataScientistComponent,
@@ -17,7 +18,8 @@ const dataScientistRoutes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'history', component: HistoryComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'files', component: DataSetComponent }
+      { path: 'files', component: DataSetComponent },
+      { path: 'datasets', component: CompleteDataSetComponent }
     ],
     //canActivate: [AuthenticationGuard]
   }
