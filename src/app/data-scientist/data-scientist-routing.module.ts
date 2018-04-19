@@ -17,7 +17,7 @@ const dataScientistRoutes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'history', component: HistoryComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'dataset', component: DataSetComponent }
+      { path: 'files', component: DataSetComponent }
     ],
     //canActivate: [AuthenticationGuard]
   }
