@@ -8,12 +8,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { DataScientistRoutingModule } from './data-scientist-routing.module';
 import { DataScientistComponent } from './data-scientist.component';
 
-import { DashboardComponent, DashboardLogDialog, DashboardAddPipelineDialog } from './dashboard/dashboard.component';
+import { DashboardComponent, DashboardLogDialog, DashboardAddPipelineDialog, DashboardViewDialog } from './dashboard/dashboard.component';
 import { HistoryComponent } from './history/history.component';
 import { ProfileComponent, ProfileUploadProfileDialog, ProfileUploadHeaderDialog } from './profile/profile.component';
 import { MessagesComponent } from './messages/messages.component';
 
-import { MatAutocompleteModule,
+import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
@@ -44,7 +45,8 @@ import { MatAutocompleteModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule, } from '@angular/material';
+  MatTooltipModule,
+} from '@angular/material';
 import { AuthenticationGuard } from '../authentication.guard';
 import { DataSetComponent, DataSetUploadDialog } from './data-set/data-set.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -107,7 +109,8 @@ import { ParamaterComponent } from './dashboard/paramater/paramater.component';
     CompleteDataSetComponent,
     CompleteDataSetUploadDialog,
     DashboardAddPipelineDialog,
-    ParamaterComponent
+    ParamaterComponent,
+    DashboardViewDialog
   ],
   providers: [AuthenticationGuard],
   entryComponents: [
@@ -116,7 +119,8 @@ import { ParamaterComponent } from './dashboard/paramater/paramater.component';
     ProfileUploadHeaderDialog,
     DataSetUploadDialog,
     CompleteDataSetUploadDialog,
-    DashboardAddPipelineDialog
+    DashboardAddPipelineDialog,
+    DashboardViewDialog
   ],
 })
 export class DataScientistModule { }

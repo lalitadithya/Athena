@@ -1,47 +1,83 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { Execution } from '../models/execution';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Algorithm } from '../models/algorithm';
 import { AlgorithmService } from '../services/algorithm.service';
 import { ParamaterService } from '../services/paramater.service';
 import { ParameterBase } from './parameter-base';
 import { PipelineService } from '../services/pipeline.service';
+import { Pipeline } from '../models/pipeline';
+import { PipelineParameters } from '../models/pipeline-parameters';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [PipelineService]
 })
 export class DashboardComponent implements OnInit {
-  executions: Execution[] = [
-    { id: '1', name: 'Regression', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
-    { id: '2', name: 'Neural Network', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
-    { id: '3', name: 'Clustering', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
-    { id: '4', name: 'Classification', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
-    { id: '5', name: 'Recommendation', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
-    { id: '6', name: 'Reinforcement', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
-    { id: '7', name: 'Anomaly detection', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
-    { id: '8', name: 'Density estimation', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
-    { id: '9', name: 'Regression', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
-    { id: '10', name: 'Neural Network', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare turpis mattis tellus sodales posuere. Mauris ac nunc dictum, tincidunt erat in, commodo nisi.', status: 'Running', image: 'https://material.angular.io/assets/img/examples/shiba2.jpg' }
-  ];
+  pipelines: Pipeline[];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+    private pipelineService: PipelineService) { }
 
   ngOnInit() {
+    this.pipelineService.get().subscribe((data) => {
+      this.pipelines = data;
+    });
   }
 
   openLogDialog(id): void {
-    console.log(id);
     const dialogRef = this.dialog.open(DashboardLogDialog, {
       width: '1024px',
-      data: { id: id }
+      data: this.pipelines.find(x => x.id == id)
+    });
+  }
+
+  openViewDialog(id): void {
+    const dialogRef = this.dialog.open(DashboardViewDialog, {
+      width: '1024px',
+      data: this.pipelines.find(x => x.id == id)
     });
   }
 
   addPipeline() {
     const dialogRef = this.dialog.open(DashboardAddPipelineDialog);
+  }
+}
+
+@Component({
+  selector: 'dashboard-view-dialog',
+  templateUrl: 'dashboard-view-dialog.html',
+  styleUrls: ['./dashboard.component.css']
+})
+export class DashboardViewDialog {
+  displayedColumns = ['parameterName', 'parameterDescription', 'value'];
+  dataSource: MatTableDataSource<PipelineParameters>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(
+    public dialogRef: MatDialogRef<DashboardViewDialog>,
+    @Inject(MAT_DIALOG_DATA) public pipeline: Pipeline) {
+    this.dataSource = new MatTableDataSource(pipeline.parameters);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
 

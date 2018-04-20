@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Pipeline } from '../models/pipeline';
 
 @Injectable()
 export class PipelineService {
@@ -10,8 +11,13 @@ export class PipelineService {
       .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
   }
 
+  get() {
+    return this.http.get<Pipeline[]>('http://localhost:57294/api/Pipeline', {
+      headers: this.headers
+    });
+  }
+
   post(data) {
-    console.log(data);
     return this.http.post('http://localhost:57294/api/Pipeline', data, {
       headers: this.headers
     });
