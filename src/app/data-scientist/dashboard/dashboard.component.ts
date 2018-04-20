@@ -6,6 +6,7 @@ import { Algorithm } from '../models/algorithm';
 import { AlgorithmService } from '../services/algorithm.service';
 import { ParamaterService } from '../services/paramater.service';
 import { ParameterBase } from './parameter-base';
+import { PipelineService } from '../services/pipeline.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -62,21 +63,27 @@ export class DashboardLogDialog {
 @Component({
   selector: 'dashboard-add-pipeline-dialog',
   templateUrl: 'dashboard-add-pipeline-dialog.html',
-  providers: [AlgorithmService, ParamaterService]
+  providers: [AlgorithmService, ParamaterService, PipelineService]
 })
 export class DashboardAddPipelineDialog {
   algorithmSelectionFormGroup: FormGroup;
   parameterFormGroup: FormGroup;
+  customizationFormGroup: FormGroup;
   container = 0;
   algorithms: Algorithm[];
   parameters: ParameterBase<any>[] = [];
 
-  constructor(private formBuilder: FormBuilder, private algorithmService: AlgorithmService, private parameterService: ParamaterService) { }
+  constructor(private formBuilder: FormBuilder,
+    private algorithmService: AlgorithmService,
+    private parameterService: ParamaterService,
+    private pipelineService: PipelineService,
+    private dialogRef: MatDialog) { }
 
   ngOnInit() {
-    //this.parameters = this.parameterService.getParameters('');
-    this.parameterFormGroup = new FormGroup({
-
+    this.parameterFormGroup = new FormGroup({});
+    this.customizationFormGroup = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required]
     });
     this.algorithmService.get().subscribe((res) => {
       this.algorithms = res;
@@ -89,10 +96,6 @@ export class DashboardAddPipelineDialog {
     });
   }
 
-  stepOneClick() {
-    console.log('clicked');
-  }
-
   stepperSelectionChanged(event) {
     if (event.previouslySelectedIndex == 0 && event.selectedIndex == 1) {
       this.parameterService.getParameters(this.alogrithm.value.id).then(result => {
@@ -103,23 +106,39 @@ export class DashboardAddPipelineDialog {
   }
 
   begin() {
-    const parameters = [];
-    for (const key in this.parameterFormGroup.value) {
-      const value = this.parameterFormGroup.value[key];
-      parameters.push({
-        id: key,
-        value: value
+    console.log("Asd");
+    if (!this.customizationFormGroup.invalid) {
+      const parameters = [];
+      for (const key in this.parameterFormGroup.value) {
+        const value = this.parameterFormGroup.value[key];
+        parameters.push({
+          id: key,
+          value: value
+        });
+      }
+      const data = {
+        AlgorithmId: this.alogrithm.value.id,
+        Parameters: parameters,
+        NumberOfContainers: this.container,
+        Name: this.name.value,
+        Description: this.description.value
+      };
+      console.log("my data = " + data);
+      this.pipelineService.post(data).subscribe(res => {
+        this.dialogRef.closeAll();
       });
     }
-    const data = {
-      algorithmId: this.alogrithm.value.id,
-      paramaters: parameters,
-      numberOfContainers: this.container
-    };
-    console.log('data = ' + JSON.stringify(data));
   }
 
   get alogrithm() {
     return this.algorithmSelectionFormGroup.get('alogrithm');
+  }
+
+  get name() {
+    return this.customizationFormGroup.get('name');
+  }
+
+  get description() {
+    return this.customizationFormGroup.get('description');
   }
 }

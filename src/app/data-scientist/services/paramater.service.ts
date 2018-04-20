@@ -22,7 +22,6 @@ export class ParamaterService {
           group[parameter.key] = new FormControl('', Validators.required);
           break;
         case 'number':
-          console.log('Asd');
           group[parameter.key] = new FormControl(0, [Validators.required, Validators.pattern(/^[-+]?[0-9]*\.?[0-9]+$/)]);
           break;
       }
@@ -37,9 +36,7 @@ export class ParamaterService {
     }).toPromise()
       .then(results => {
         const parameters: ParameterBase<any>[] = [];
-        console.log(results);
         for (const i in results) {
-          console.log(results[i]);
           switch (results[i].dataType) {
             case 'number':
               parameters.push(new ParameterNumber({

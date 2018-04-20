@@ -37,7 +37,7 @@
       </form>
     </mat-step>
     <mat-step [stepControl]="containerSelectionFormGroup">
-      <ng-template matStepLabel>Pick your poision</ng-template>
+      <ng-template matStepLabel>How much poision?</ng-template>
       <div>
         <h4>How many containers do you need?</h4>
       </div>
@@ -49,13 +49,28 @@
         <button mat-raised-button matStepperNext color="primary" style="float:right;">Next</button>
       </div>
     </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Enjoy</ng-template>
-      Shall we begin?
-      <div>
-        <button mat-raised-button matStepperPrevious color="primary" style="float:left;">Back</button>
-        <button (click)="begin()" mat-raised-button color="primary" style="float:right;">Create</button>
-      </div>
+    <mat-step [stepControl]="customizationFormGroup">
+      <form class="form" [formGroup]="customizationFormGroup">
+        <ng-template matStepLabel>Name your poision</ng-template>
+        <mat-form-field style="width:100%;">
+          <input matInput placeholder="Name" type="text" formControlName="name">
+          <mat-error *ngIf="name.hasError('required')">
+            Name is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width:100%;">
+          <textarea matInput placeholder="Description" formControlName="description"></textarea>
+          <mat-error *ngIf="description.hasError('required')">
+            Description is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button matStepperPrevious color="primary" style="float:left;">Back</button>
+          <button (click)="begin()" mat-raised-button color="primary" style="float:right;">Create Pipeline</button>
+        </div>
+      </form>
     </mat-step>
   </mat-horizontal-stepper>
 </mat-dialog-content>
