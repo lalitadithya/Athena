@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class DataSetService {
   headers: HttpHeaders;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.headers = new HttpHeaders().set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + localStorage.getItem('token'));
   }

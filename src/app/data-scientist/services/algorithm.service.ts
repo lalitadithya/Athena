@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Algorithm } from '../models/algorithm'
+import { Algorithm } from '../models/algorithm';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()

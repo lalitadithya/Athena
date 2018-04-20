@@ -1,4 +1,4 @@
-import { ParameterBase } from "./parameter-base";
+import { ParameterBase } from './parameter-base';
 
 export class ParameterText extends ParameterBase<string> {
   controlType = 'string';

@@ -49,7 +49,7 @@ export class CompleteDataSetComponent implements OnInit {
     const dialogRef = this.dialog.open(CompleteDataSetUploadDialog);
     dialogRef.afterClosed().subscribe(result => {
       this.updateData();
-    })
+    });
   }
 }
 
@@ -95,8 +95,8 @@ export class CompleteDataSetUploadDialog {
   }
 
   onSubmit() {
-    let val = this.createDataSetForm.getRawValue();
-    let seralized = JSON.stringify(val);
+    const val = this.createDataSetForm.getRawValue();
+    const seralized = JSON.stringify(val);
     console.log(seralized);
     this.dataSetService.post(seralized).subscribe(response => this.dialog.closeAll());
   }

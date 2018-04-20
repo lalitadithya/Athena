@@ -111,11 +111,11 @@ import { ParamaterComponent } from './dashboard/paramater/paramater.component';
   ],
   providers: [AuthenticationGuard],
   entryComponents: [
-    DashboardLogDialog, 
-    ProfileUploadProfileDialog, 
-    ProfileUploadHeaderDialog, 
-    DataSetUploadDialog, 
-    CompleteDataSetUploadDialog, 
+    DashboardLogDialog,
+    ProfileUploadProfileDialog,
+    ProfileUploadHeaderDialog,
+    DataSetUploadDialog,
+    CompleteDataSetUploadDialog,
     DashboardAddPipelineDialog
   ],
 })

@@ -14,34 +14,34 @@ export class ParamaterService {
   }
 
   toFormGroup(parameters: ParameterBase<any>[]) {
-    let group: any = {};
+    const group: any = {};
 
     parameters.forEach(parameter => {
       switch (parameter.controlType) {
-        case "string":
+        case 'string':
           group[parameter.key] = new FormControl('', Validators.required);
           break;
-        case "number":
-          console.log("Asd");
+        case 'number':
+          console.log('Asd');
           group[parameter.key] = new FormControl(0, [Validators.required, Validators.pattern(/^[-+]?[0-9]*\.?[0-9]+$/)]);
           break;
       }
-    })
+    });
 
     return new FormGroup(group);
   }
 
   getParameters(id) {
-    let promise = this.http.get('http://localhost:57294/api/AlgorithmParamertes/' + id, {
+    const promise = this.http.get('http://localhost:57294/api/AlgorithmParamertes/' + id, {
       headers: this.headers
     }).toPromise()
       .then(results => {
-        let parameters: ParameterBase<any>[] = [];
+        const parameters: ParameterBase<any>[] = [];
         console.log(results);
-        for (var i in results) {
+        for (const i in results) {
           console.log(results[i]);
           switch (results[i].dataType) {
-            case "number":
+            case 'number':
               parameters.push(new ParameterNumber({
                 key: results[i].id,
                 label: results[i].description,
@@ -50,7 +50,7 @@ export class ParamaterService {
                 order: i
               }));
               break;
-            case "string":
+            case 'string':
               parameters.push(new ParameterText({
                 key: results[i].id,
                 label: results[i].description,

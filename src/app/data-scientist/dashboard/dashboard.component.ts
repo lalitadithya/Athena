@@ -90,7 +90,7 @@ export class DashboardAddPipelineDialog {
   }
 
   stepOneClick() {
-    console.log("clicked");
+    console.log('clicked');
   }
 
   stepperSelectionChanged(event) {
@@ -103,20 +103,20 @@ export class DashboardAddPipelineDialog {
   }
 
   begin() {
-    let parameters = [];
-    for (let key in this.parameterFormGroup.value) {
-      let value = this.parameterFormGroup.value[key];
+    const parameters = [];
+    for (const key in this.parameterFormGroup.value) {
+      const value = this.parameterFormGroup.value[key];
       parameters.push({
         id: key,
         value: value
       });
     }
-    let data = {
+    const data = {
       algorithmId: this.alogrithm.value.id,
       paramaters: parameters,
       numberOfContainers: this.container
-    }
-    console.log("data = " + JSON.stringify(data));
+    };
+    console.log('data = ' + JSON.stringify(data));
   }
 
   get alogrithm() {
