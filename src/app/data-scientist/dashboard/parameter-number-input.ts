@@ -1,11 +1,11 @@
 import { ParameterBase } from "./parameter-base";
 
-export class ParameterText extends ParameterBase<string> {
-  controlType = 'string';
+export class ParameterNumber extends ParameterBase<number> {
+  controlType = 'number';
   type: string;
 
   constructor(options: {} = {}) {
     super(options);
-    this.type = options['type'] || '';
+    this.type = options['type'] || 1;
   }
 }

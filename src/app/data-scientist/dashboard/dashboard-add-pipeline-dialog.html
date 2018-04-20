@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Add Pipeline</h2>
 <mat-dialog-content>
-  <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+  <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper" (selectionChange)="stepperSelectionChanged($event)">
     <mat-step [stepControl]="algorithmSelectionFormGroup">
       <form class="form" [formGroup]="algorithmSelectionFormGroup">
         <ng-template matStepLabel>Pick your poision</ng-template>
@@ -36,12 +36,25 @@
         </div>
       </form>
     </mat-step>
+    <mat-step [stepControl]="containerSelectionFormGroup">
+      <ng-template matStepLabel>Pick your poision</ng-template>
+      <div>
+        <h4>How many containers do you need?</h4>
+      </div>
+      <div style="width:100%;">
+        <mat-slider style="width: 100%;padding-top: 20px;" [(ngModel)]="container" [max]="100" [min]="2" [step]="1" [thumb-label]="true"
+          [tick-interval]="1"></mat-slider>
+      </div>
+      <div>
+        <button mat-raised-button matStepperNext color="primary" style="float:right;">Next</button>
+      </div>
+    </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
+      <ng-template matStepLabel>Enjoy</ng-template>
+      Shall we begin?
       <div>
         <button mat-raised-button matStepperPrevious color="primary" style="float:left;">Back</button>
-        <button mat-raised-button color="primary" style="float:right;">Create</button>
+        <button (click)="begin()" mat-raised-button color="primary" style="float:right;">Create</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

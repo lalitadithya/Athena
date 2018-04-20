@@ -5,5 +5,9 @@
       {{parameter.label}} is
       <strong>required</strong>
     </mat-error>
+    <mat-error *ngIf="control.hasError('pattern')">
+      {{parameter.label}} should
+      <strong>be a number</strong>
+    </mat-error>
   </mat-form-field>
 </div>

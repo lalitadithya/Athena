@@ -67,20 +67,56 @@ export class DashboardLogDialog {
 export class DashboardAddPipelineDialog {
   algorithmSelectionFormGroup: FormGroup;
   parameterFormGroup: FormGroup;
+  container = 0;
   algorithms: Algorithm[];
   parameters: ParameterBase<any>[] = [];
 
   constructor(private formBuilder: FormBuilder, private algorithmService: AlgorithmService, private parameterService: ParamaterService) { }
 
   ngOnInit() {
-    this.parameters = this.parameterService.getParameters();
-    this.parameterFormGroup = this.parameterService.toFormGroup(this.parameters);
+    //this.parameters = this.parameterService.getParameters('');
+    this.parameterFormGroup = new FormGroup({
+
+    });
     this.algorithmService.get().subscribe((res) => {
       this.algorithms = res;
     });
     this.algorithmSelectionFormGroup = this.formBuilder.group({
       alogrithm: ['', Validators.required]
     });
+    this.parameterFormGroup = this.formBuilder.group({
+      containers: [0, [Validators.required, Validators.min(1), Validators.max(100)]]
+    });
+  }
+
+  stepOneClick() {
+    console.log("clicked");
+  }
+
+  stepperSelectionChanged(event) {
+    if (event.previouslySelectedIndex == 0 && event.selectedIndex == 1) {
+      this.parameterService.getParameters(this.alogrithm.value.id).then(result => {
+        this.parameters = result;
+        this.parameterFormGroup = this.parameterService.toFormGroup(this.parameters);
+      });
+    }
+  }
+
+  begin() {
+    let parameters = [];
+    for (let key in this.parameterFormGroup.value) {
+      let value = this.parameterFormGroup.value[key];
+      parameters.push({
+        id: key,
+        value: value
+      });
+    }
+    let data = {
+      algorithmId: this.alogrithm.value.id,
+      paramaters: parameters,
+      numberOfContainers: this.container
+    }
+    console.log("data = " + JSON.stringify(data));
   }
 
   get alogrithm() {
