@@ -10,6 +10,7 @@ import { PipelineService } from '../services/pipeline.service';
 import { Pipeline } from '../models/pipeline';
 import { PipelineParameters } from '../models/pipeline-parameters';
 import { HubConnection } from '@aspnet/signalr';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,12 +22,16 @@ export class DashboardComponent implements OnInit {
   pipelines: Pipeline[];
 
   constructor(public dialog: MatDialog,
-    private pipelineService: PipelineService) { }
+    private pipelineService: PipelineService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.pipelineService.get().subscribe((data) => {
       this.pipelines = data;
     });
+  }
+
+  sanitize(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   openLogDialog(id): void {

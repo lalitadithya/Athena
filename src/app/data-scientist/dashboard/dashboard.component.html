@@ -8,6 +8,7 @@
     <mat-card-actions>
       <button mat-button color="accent" style="font-weight:bold" (click)="openLogDialog(pipeline.id)">LOGS</button>
       <button mat-button color="accent" style="font-weight:bold" (click)="openViewDialog(pipeline.id)">VIEW</button>
+      <a *ngIf="pipeline.result" [href]="sanitize('data:text/json,'+pipeline.result)" mat-button color="accent" style="font-weight:bold">RESULT</a>
     </mat-card-actions>
   </mat-card>
 </div>

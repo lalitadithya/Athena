@@ -8,5 +8,6 @@ export interface Pipeline {
   name: string;
   description: string;
   numberOfContainers: number;
+  result: string;
   parameters: PipelineParameters[];
 }
