@@ -9,6 +9,7 @@ import { ParameterBase } from './parameter-base';
 import { PipelineService } from '../services/pipeline.service';
 import { Pipeline } from '../models/pipeline';
 import { PipelineParameters } from '../models/pipeline-parameters';
+import { HubConnection } from '@aspnet/signalr';
 
 @Component({
   selector: 'app-dashboard',
@@ -85,11 +86,27 @@ export class DashboardViewDialog {
   selector: 'dashboard-log-dialog',
   templateUrl: 'dashboard-log-dialog.html'
 })
-export class DashboardLogDialog {
+export class DashboardLogDialog implements OnInit {
+  private hubConnection: HubConnection;
+  public logs: String = "";
 
   constructor(
     public dialogRef: MatDialogRef<DashboardLogDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: Pipeline) {
+  }
+
+  ngOnInit() {
+    this.hubConnection = new HubConnection('http://localhost:57294/loghub');
+    this.hubConnection.on('Log', (data: any) => {
+      this.logs += data;
+    });
+    this.hubConnection.start().then(() => {
+      console.log("Connection started");
+      this.hubConnection.invoke('StartTransmission', this.data.id);
+    }).catch(() => {
+      console.log("Error occured");
+    });
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
