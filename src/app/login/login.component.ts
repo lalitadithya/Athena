@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   invalidLogin: boolean;
   inProgress: boolean;
+  completed: boolean;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthenticationService) {
     this.constructForm();
@@ -31,13 +32,13 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.inProgress = true;
     this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
-    .subscribe(result => {
-      this.inProgress = false;
-      this.router.navigateByUrl('/data-scientist');
-    }, error => {
-      this.inProgress = false;
-      this.invalidLogin = true;
-    });
+      .subscribe(result => {
+        this.inProgress = false;
+        this.router.navigateByUrl('/data-scientist');
+      }, error => {
+        this.inProgress = false;
+        this.invalidLogin = true;
+      });
   }
 
   get email() {

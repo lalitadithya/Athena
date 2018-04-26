@@ -4,6 +4,7 @@ import { HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpHeaders } fro
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { DataSetServiceService } from './data-set-service.service';
 import { Element } from './data-set';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-data-set',
@@ -23,7 +24,6 @@ export class DataSetComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.updateData();
   }
@@ -32,6 +32,7 @@ export class DataSetComponent implements OnInit {
     this.service.get().subscribe((res) => {
       this.ELEMENT_DATA = res;
       this.dataSource = new MatTableDataSource<Element>(this.ELEMENT_DATA);
+      this.dataSource.paginator = this.paginator;
     });
   }
 

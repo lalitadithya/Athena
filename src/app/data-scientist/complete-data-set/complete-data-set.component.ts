@@ -30,8 +30,8 @@ export class CompleteDataSetComponent implements OnInit {
 
   updateData() {
     this.service.get().subscribe((data) => {
-      console.log(data);
       this.dataSource = new MatTableDataSource<DataSet>(data);
+      this.dataSource.paginator = this.paginator;
     });
   }
 

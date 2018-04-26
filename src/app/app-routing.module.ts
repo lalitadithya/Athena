@@ -9,11 +9,11 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'data-scientist', component: DataScientistComponent},
+  { path: 'data-scientist', component: DataScientistComponent },
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, { enableTracing: true }) ],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

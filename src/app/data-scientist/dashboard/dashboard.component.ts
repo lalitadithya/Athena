@@ -130,6 +130,7 @@ export class DashboardAddPipelineDialog {
   container = 0;
   algorithms: Algorithm[];
   parameters: ParameterBase<any>[] = [];
+  selected: string;
 
   constructor(private formBuilder: FormBuilder,
     private algorithmService: AlgorithmService,

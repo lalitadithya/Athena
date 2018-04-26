@@ -5,6 +5,8 @@ export class ParameterBase<T> {
   required: boolean;
   order: number;
   controlType: string;
+  id: string;
+  type: string;
 
   constructor(options: {
     value?: T,
