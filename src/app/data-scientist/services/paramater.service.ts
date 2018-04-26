@@ -31,7 +31,7 @@ export class ParamaterService {
   }
 
   getParameters(id) {
-    const promise = this.http.get('http://localhost:57294/api/AlgorithmParamertes/' + id, {
+    const promise = this.http.get('http://athena.a2hosted.com/api/AlgorithmParamertes/' + id, {
       headers: this.headers
     }).toPromise()
       .then(results => {

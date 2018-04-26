@@ -101,7 +101,7 @@ export class DashboardLogDialog implements OnInit {
   }
 
   ngOnInit() {
-    this.hubConnection = new HubConnection('http://localhost:57294/loghub');
+    this.hubConnection = new HubConnection('http://athena.a2hosted.com/loghub');
     this.hubConnection.on('Log', (data: any) => {
       this.logs += data;
     });

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { DataSetServiceService } from './data-set-service.service';
-import {Element} from './data-set';
+import { Element } from './data-set';
 
 @Component({
   selector: 'app-data-set',
@@ -86,7 +86,7 @@ export class DataSetUploadDialog {
     formData.set('Description', this.uploadDataSetForm.get('description').value);
 
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    const req = new HttpRequest('POST', 'http://localhost:57294/api/DataSets', formData, {
+    const req = new HttpRequest('POST', 'http://athena.a2hosted.com/api/DataSets', formData, {
       reportProgress: true,
       headers: headers
     });

@@ -12,13 +12,13 @@ export class DataSetService {
   }
 
   get() {
-    return this.http.get<DataSet[]>('http://localhost:57294/api/CompleteDataSets', {
+    return this.http.get<DataSet[]>('http://athena.a2hosted.com/api/CompleteDataSets', {
       headers: this.headers
     });
   }
 
   post(dataSet) {
-    return this.http.post('http://localhost:57294/api/CompleteDataSets', dataSet, {
+    return this.http.post('http://athena.a2hosted.com/api/CompleteDataSets', dataSet, {
       headers: this.headers
     });
   }

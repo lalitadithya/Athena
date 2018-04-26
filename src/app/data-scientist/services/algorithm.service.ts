@@ -12,7 +12,7 @@ export class AlgorithmService {
   }
 
   get() {
-    return this.http.get<Algorithm[]>('http://localhost:57294/api/Algorithm', {
+    return this.http.get<Algorithm[]>('http://athena.a2hosted.com/api/Algorithm', {
       headers: this.headers
     });
   }

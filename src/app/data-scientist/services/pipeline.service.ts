@@ -12,13 +12,13 @@ export class PipelineService {
   }
 
   get() {
-    return this.http.get<Pipeline[]>('http://localhost:57294/api/Pipeline', {
+    return this.http.get<Pipeline[]>('http://athena.a2hosted.com/api/Pipeline', {
       headers: this.headers
     });
   }
 
   post(data) {
-    return this.http.post('http://localhost:57294/api/Pipeline', data, {
+    return this.http.post('http://athena.a2hosted.com/api/Pipeline', data, {
       headers: this.headers
     });
   }

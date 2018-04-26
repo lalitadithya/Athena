@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Element} from './data-set';
+import { Element } from './data-set';
 
 @Injectable()
 export class DataSetServiceService {
@@ -11,7 +11,7 @@ export class DataSetServiceService {
   }
 
   get() {
-    return this.http.get<Element[]>('http://localhost:57294/api/DataSets', {
+    return this.http.get<Element[]>('http://athena.a2hosted.com/api/DataSets', {
       headers: this.headers
     });
   }
