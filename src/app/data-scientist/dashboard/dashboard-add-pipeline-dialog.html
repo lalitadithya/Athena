@@ -3,7 +3,7 @@
   <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper" (selectionChange)="stepperSelectionChanged($event)">
     <mat-step [stepControl]="algorithmSelectionFormGroup">
       <form class="form" [formGroup]="algorithmSelectionFormGroup">
-        <ng-template matStepLabel>Pick your poision</ng-template>
+        <ng-template matStepLabel>Pick your poison</ng-template>
         <mat-form-field style="width:100%;">
           <mat-select [(value)]="selected" placeholder="Algorithm" formControlName="alogrithm">
             <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm">
@@ -12,6 +12,17 @@
           </mat-select>
           <mat-error *ngIf="alogrithm.hasError('required')">
             Algorithm is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="width:100%;">
+          <mat-select placeholder="Dataset" formControlName="dataset">
+            <mat-option *ngFor="let dataset of datasets" [value]="dataset">
+              {{dataset.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="dataset.hasError('required')">
+            Dataset is
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
@@ -25,7 +36,7 @@
     </mat-step>
     <mat-step [stepControl]="parameterFormGroup">
       <form [formGroup]="parameterFormGroup">
-        <ng-template matStepLabel>How would you like your poision</ng-template>
+        <ng-template matStepLabel>How would you like your poison</ng-template>
         <div *ngFor="let parameter of parameters" class="form-row">
           <app-paramater [parameter]="parameter" [form]="parameterFormGroup"></app-paramater>
         </div>
@@ -37,7 +48,7 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>How much poision?</ng-template>
+      <ng-template matStepLabel>How much poison?</ng-template>
       <div>
         <h4>How many containers do you need?</h4>
       </div>
@@ -51,7 +62,7 @@
     </mat-step>
     <mat-step [stepControl]="customizationFormGroup">
       <form class="form" [formGroup]="customizationFormGroup">
-        <ng-template matStepLabel>Name your poision</ng-template>
+        <ng-template matStepLabel>Name your poison</ng-template>
         <mat-form-field style="width:100%;">
           <input matInput placeholder="Name" type="text" formControlName="name">
           <mat-error *ngIf="name.hasError('required')">

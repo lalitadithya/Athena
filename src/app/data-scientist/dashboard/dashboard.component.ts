@@ -11,6 +11,8 @@ import { Pipeline } from '../models/pipeline';
 import { PipelineParameters } from '../models/pipeline-parameters';
 import { HubConnection } from '@aspnet/signalr';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DataSet } from '../complete-data-set/data-set';
+import { DataSetService } from '../complete-data-set/data-set.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -121,7 +123,7 @@ export class DashboardLogDialog implements OnInit {
 @Component({
   selector: 'dashboard-add-pipeline-dialog',
   templateUrl: 'dashboard-add-pipeline-dialog.html',
-  providers: [AlgorithmService, ParamaterService, PipelineService]
+  providers: [AlgorithmService, ParamaterService, PipelineService, DataSetService]
 })
 export class DashboardAddPipelineDialog {
   algorithmSelectionFormGroup: FormGroup;
@@ -129,6 +131,7 @@ export class DashboardAddPipelineDialog {
   customizationFormGroup: FormGroup;
   container = 0;
   algorithms: Algorithm[];
+  datasets: DataSet[];
   parameters: ParameterBase<any>[] = [];
   selected: string;
 
@@ -136,6 +139,7 @@ export class DashboardAddPipelineDialog {
     private algorithmService: AlgorithmService,
     private parameterService: ParamaterService,
     private pipelineService: PipelineService,
+    private datasetService: DataSetService,
     private dialogRef: MatDialog) { }
 
   ngOnInit() {
@@ -147,8 +151,12 @@ export class DashboardAddPipelineDialog {
     this.algorithmService.get().subscribe((res) => {
       this.algorithms = res;
     });
+    this.datasetService.get().subscribe((res) => {
+      this.datasets = res;
+    })
     this.algorithmSelectionFormGroup = this.formBuilder.group({
-      alogrithm: ['', Validators.required]
+      alogrithm: ['', Validators.required],
+      dataset: ['', Validators.required]
     });
     this.parameterFormGroup = this.formBuilder.group({
       containers: [0, [Validators.required, Validators.min(1), Validators.max(100)]]
@@ -165,7 +173,6 @@ export class DashboardAddPipelineDialog {
   }
 
   begin() {
-    console.log("Asd");
     if (!this.customizationFormGroup.invalid) {
       const parameters = [];
       for (const key in this.parameterFormGroup.value) {
@@ -180,9 +187,9 @@ export class DashboardAddPipelineDialog {
         Parameters: parameters,
         NumberOfContainers: this.container,
         Name: this.name.value,
-        Description: this.description.value
+        Description: this.description.value,
+        DataSetId: this.dataset.value.id
       };
-      console.log("my data = " + data);
       this.pipelineService.post(data).subscribe(res => {
         this.dialogRef.closeAll();
       });
@@ -199,5 +206,9 @@ export class DashboardAddPipelineDialog {
 
   get description() {
     return this.customizationFormGroup.get('description');
+  }
+
+  get dataset() {
+    return this.algorithmSelectionFormGroup.get('dataset');
   }
 }
